@@ -1,0 +1,35 @@
+{
+  "name": "express-stormpath-angular-sample-project",
+  "version": "0.0.1",
+  "description": "Sample fullstack application, using Angular.js, Express.js, and Stormpath",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stormpath/express-stormpath-angular-sample-project"
+  },
+  "keywords": [
+    "stormpath",
+    "angular",
+    "express",
+    "authentication",
+    "oauth",
+    "login",
+    "registration",
+    "user",
+    "password",
+    "security"
+  ],
+  "author": "Stormpath, Inc.",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/stormpath/express-stormpath-angular-sample-project/issues"
+  },
+  "homepage": "https://github.com/stormpath/express-stormpath-angular-sample-project",
+  "dependencies": {
+    "express": "^4.13.3",
+    "express-stormpath": "^2.2.0"
+  }
+}
