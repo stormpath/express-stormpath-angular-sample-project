@@ -47,6 +47,9 @@ app.use(stormpath.init(app, {
  */
 app.on('stormpath.ready',function () {
   console.log('Stormpath Ready');
-  app.listen(process.env.PORT || 3000);
+  var port = process.env.PORT || 3000;
+  app.listen(port, function () {
+    console.log('Application running at http://localhost:'+port);
+  });
 });
 
