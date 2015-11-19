@@ -40,10 +40,11 @@ angular.module('exampleApp')
         })
         .catch(function(httpResponse){
           $scope.error = httpResponse &&
-            httpResponse.data &&
-            httpResponse.data.userMessage ||
-            httpResponse.data.message ||
-            'Unknown server error';
+            httpResponse.data ? (
+              httpResponse.data.userMessage ||
+              httpResponse.data.message ||
+              'An error has occured'
+            ) : 'Server error';
         })
         .finally(function(){
           $scope.saving = false;

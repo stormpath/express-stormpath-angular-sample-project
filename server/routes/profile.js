@@ -17,15 +17,15 @@ function profilePostHandler(req, res) {
    * TODO: consolidate into a single save call when this issue is resolved:
    * https://github.com/stormpath/express-stormpath/issues/156
    */
-  req.user.customData.save(function(err){
+  req.user.save(function(err){
     if(err){
       res.status(err.status || 400).json(err);
     }else{
-      req.user.save(function (err, updatedUser){
+      req.user.customData.save(function (err){
         if(err){
           res.status(err.status || 400).json(err);
         }else{
-          res.json(updatedUser);
+          res.end();
         }
       });
     }
