@@ -24,7 +24,7 @@ app.set('trust proxy',true);
 
  */
 
-app.use('/',express.static(path.join(__dirname,'client'),{ redirect: false }));
+app.use('/',express.static(path.join(__dirname, '..', 'client'),{ redirect: false }));
 
 /**
  * Now we initialize Stormpath, any middleware that is registered after this
@@ -38,7 +38,7 @@ app.use(stormpath.init(app, {
     groups: true
   },
   web: {
-    spaRoot: path.join(__dirname, 'client','index.html')
+    spaRoot: path.join(__dirname, '..', 'client','index.html')
   }
 }));
 
@@ -51,34 +51,10 @@ app.use(stormpath.init(app, {
  */
 app.route('/*')
   .get(function(req, res) {
-    res.sendFile(path.join(__dirname,'client','index.html'));
+    res.sendFile(path.join(__dirname, '..', 'client','index.html'));
   });
 
-app.post('/profile',bodyParser.json(),stormpath.loginRequired,function(req,res){
-
-  req.user.givenName = req.body.givenName;
-  req.user.surname = req.body.surname;
-  req.user.customData.favoriteColor = req.body.favoriteColor;
-
-  /**
-   * TODO: consolidate into a single save call when this issue is resolved:
-   * https://github.com/stormpath/express-stormpath/issues/156
-   */
-  req.user.customData.save(function(err){
-    if(err){
-      res.status(err.status || 400).json(err);
-    }else{
-      req.user.save(function (err, updatedUser){
-        if(err){
-          res.status(err.status || 400).json(err);
-        }else{
-          res.json(updatedUser);
-        }
-      });
-    }
-  });
-
-});
+app.post('/profile', bodyParser.json(), stormpath.loginRequired, require('./routes/profile'));
 
 /**
  * Start the web server.
