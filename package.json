@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/stormpath/express-stormpath-angular-sample-project",
   "dependencies": {
+    "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "express-stormpath": "^2.2.0"
   }
