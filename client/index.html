@@ -16,7 +16,7 @@
   </head>
   <body ng-app="exampleApp">
     <div if-user-state-unknown>
-      Loading..
+      <div ng-include="'spinner/spinner.html'"></div>
     </div>
     <div if-user-state-known>
       <div ng-include="'navbar/navbar.html'"></div>
