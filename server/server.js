@@ -34,8 +34,7 @@ app.use('/',express.static(path.join(__dirname, '..', 'client'),{ redirect: fals
 app.use(stormpath.init(app, {
   website: true,
   expand: {
-    customData: true,
-    groups: true
+    customData: true
   },
   web: {
     spaRoot: path.join(__dirname, '..', 'client','index.html')
