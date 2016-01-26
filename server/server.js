@@ -31,6 +31,8 @@ app.use('/',express.static(path.join(__dirname, '..', 'client'),{ redirect: fals
  * point will be protected by Stormpath.
  */
 
+console.log('Initializing Stormpath');
+
 app.use(stormpath.init(app, {
   website: true,
   expand: {
