@@ -34,7 +34,6 @@ app.use('/',express.static(path.join(__dirname, '..', 'client'),{ redirect: fals
 console.log('Initializing Stormpath');
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
 app.use(stormpath.init(app, {
   website: true,
