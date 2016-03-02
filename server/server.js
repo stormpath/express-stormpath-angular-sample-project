@@ -34,12 +34,17 @@ app.use('/',express.static(path.join(__dirname, '..', 'client'),{ redirect: fals
 console.log('Initializing Stormpath');
 
 app.use(stormpath.init(app, {
-  website: true,
-  expand: {
-    customData: true
-  },
   web: {
-    spaRoot: path.join(__dirname, '..', 'client','index.html')
+    spa: {
+      enabled: true,
+      view: path.join(__dirname, '..', 'client','index.html')
+    },
+    me: {
+      expand: {
+        customData: true,
+        groups: true
+      }
+    }
   }
 }));
 
@@ -62,9 +67,9 @@ app.post('/profile', bodyParser.json(), stormpath.loginRequired, require('./rout
  */
 app.on('stormpath.ready',function () {
   console.log('Stormpath Ready');
-  var port = process.env.PORT || 3000;
-  app.listen(port, function () {
-    console.log('Application running at http://localhost:'+port);
-  });
 });
 
+var port = process.env.PORT || 3000;
+app.listen(port, function () {
+  console.log('Application running at http://localhost:'+port);
+});
