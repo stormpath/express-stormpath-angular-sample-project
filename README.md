@@ -43,10 +43,16 @@ application:
 
 ## 4. Usage
 
-To start the server, run this command in the folder:
+To start the server in dev mode(using webpack and nodemon), run this command in the folder:
 
 ```bash
-node server/server.js
+npm start
+```
+To start the server in production mode, run these commands in the folder:
+
+```bash
+webpack
+npm run prod
 ```
 
 If the server is able to start with your configuration, you will see this in
