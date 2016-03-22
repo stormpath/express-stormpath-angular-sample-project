@@ -9,19 +9,11 @@ var ngTemplateLoader = (
 );
 module.exports = {
   devtool: 'eval-source-map',
-  // entry: [
-  //   'webpack-hot-middleware/client?reload=true',
-  //   path.join(__dirname, 'client/app.js')
-  // ],
   entry: {
     app:    path.join(__dirname, 'client/app.js'),
     vendor: [
       'angular',
       'angular-ui-router',
-      // 'bootstrap',
-      // path.join(__dirname, 'node_modules/bootstrap/dist/css/bootstrap.min.css'),
-      // path.join(__dirname, 'client/vendor/angular.js'),
-      // path.join(__dirname, 'client/vendor/angular-ui-router.js'),
       path.join(__dirname, 'client/vendor/stormpath-sdk-angularjs.js'),
       path.join(__dirname, 'client/vendor/stormpath-sdk-angularjs.tpls.js')
     ]
@@ -53,6 +45,7 @@ module.exports = {
   ],
   module: {
     loaders: [
+        // NOTE: if you want babel for ES6
         // {
         //     test: /\.js$/,
         //     loader: 'babel',
