@@ -4,7 +4,7 @@
   "description": "Sample fullstack application, using Angular.js, Express.js, and Stormpath",
   "main": "server.js",
   "scripts": {
-    "start" : "node server/server.js",
+    "start" : "NODE_ENV='dev' nodemon  server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

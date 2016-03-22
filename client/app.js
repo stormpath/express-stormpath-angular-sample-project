@@ -35,3 +35,11 @@ angular.module('exampleApp', [
       $state.transitionTo('login');
     });
   });
+require('./change-password/change-password.js');
+require('./forgot-password/forgot-password.js');
+require('./home/home.js');
+require('./login/login.js');
+require('./navbar/navbar.js');
+require('./profile/profile.js');
+require('./register/register.js');
+require('./verify-email/verify-email.js');
