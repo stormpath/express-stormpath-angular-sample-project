@@ -5,6 +5,6 @@ angular.module('exampleApp')
     $stateProvider
       .state('home', {
         url: '/',
-        templateUrl: 'home/home.html'
+        template: require('./home.html')
       });
   });

@@ -4,7 +4,7 @@
   "description": "Sample fullstack application, using Angular.js, Express.js, and Stormpath",
   "main": "server.js",
   "scripts": {
-    "start" : "NODE_ENV='dev' nodemon  server/server.js",
+    "start": "NODE_ENV='dev' nodemon  server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -52,8 +52,11 @@
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.2.0"
   },
-  "engines" :{
+  "engines": {
     "node": "^5.7.1",
     "npm": "^3.6.0"
+  },
+  "devDependencies": {
+    "raw-loader": "^0.5.1"
   }
 }

@@ -5,7 +5,7 @@ angular.module('exampleApp')
     $stateProvider
       .state('profile', {
         url: '/profile',
-        templateUrl: 'profile/profile.html',
+        template: require('./profile.html'),
         controller: 'ProfileCtrl',
         /**
          * The Stormpath Angular SDK provides a configuration block that informs

@@ -5,6 +5,6 @@ angular.module('exampleApp')
     $stateProvider
       .state('change', {
         url: '/change?sptoken',
-        templateUrl: 'change-password/change-password.html'
+        template: require('./change-password.html')
       });
   });

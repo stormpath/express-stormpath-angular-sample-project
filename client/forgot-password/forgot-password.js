@@ -5,6 +5,6 @@ angular.module('exampleApp')
     $stateProvider
       .state('forgot', {
         url: '/forgot',
-        templateUrl: 'forgot-password/forgot-password.html'
+        template: require('./forgot-password.html')
       });
   });

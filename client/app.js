@@ -1,3 +1,5 @@
+require("./app.css");
+
 'use strict';
 
 angular.module('exampleApp', [
