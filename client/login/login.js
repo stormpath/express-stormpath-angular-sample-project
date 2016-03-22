@@ -5,6 +5,6 @@ angular.module('exampleApp')
     $stateProvider
       .state('login', {
         url: '/login',
-        templateUrl: 'login/login.html'
+        template: require('./login.html')
       });
   });

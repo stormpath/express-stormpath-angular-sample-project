@@ -1,14 +1,24 @@
 'use strict';
 
-var bodyParser = require('body-parser');
-var express = require('express');
-var path = require('path');
-var stormpath = require('express-stormpath');
+const bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const stormpath = require('express-stormpath');
+const webpack = require('webpack');
+const webpackMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+const config = require('../webpack.config.js');
+
+const isDeveloping = process.env.NODE_ENV !== 'production';
+// const port = isDeveloping ? 3000 : process.env.PORT;
 
 /**
  * Create the Express application.
  */
-var app = express();
+const app = express();
+
+
+
 
 /**
  * The 'trust proxy' setting is required if you will be deploying your
@@ -23,8 +33,9 @@ app.set('trust proxy',true);
   setup this server before we initialize Stormpath.
 
  */
-
-app.use('/',express.static(path.join(__dirname, '..', 'client'),{ redirect: false }));
+if (!isDeveloping) {
+  app.use('/',express.static(path.join(__dirname, '..', 'dist'),{ redirect: false }));
+}
 
 /**
  * Now we initialize Stormpath, any middleware that is registered after this
@@ -55,10 +66,33 @@ app.use(stormpath.init(app, {
  * to define all view routes, and rediret to the home page if the URL is not
  * defined.
  */
-app.route('/*')
-  .get(function(req, res) {
-    res.sendFile(path.join(__dirname, '..', 'client','index.html'));
-  });
+
+
+
+ if (isDeveloping){
+     console.log('isdev');
+     const compiler = webpack(config);
+     const middleware = webpackMiddleware(compiler, {
+       publicPath: config.output.publicPath,
+       contentBase: 'client',
+       stats: {
+         colors: true,
+         hash: false,
+         timings: true,
+         chunks: false,
+         chunkModules: false,
+         modules: false
+       }
+     });
+
+     app.use(middleware);
+     app.use(webpackHotMiddleware(compiler));
+     app.get('*', function response(req, res) {
+        // res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '../client/index.html')));
+        // res.sendFile(path.join(__dirname, 'dist/index.html'));
+       res.end();
+     });
+ } 
 
 app.post('/profile', bodyParser.json(), stormpath.loginRequired, require('./routes/profile'));
 
@@ -69,7 +103,42 @@ app.on('stormpath.ready',function () {
   console.log('Stormpath Ready');
 });
 
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, function () {
+  console.log("NODE_ENV =", process.env.NODE_ENV);
   console.log('Application running at http://localhost:'+port);
 });
+
+
+// _____________________________________
+// FOR REFERENCE TEMPORARILY
+// if (!isDeveloping) {
+//   console.log('isdev');
+//   const compiler = webpack(config);
+//   const middleware = webpackMiddleware(compiler, {
+//     publicPath: config.output.publicPath,
+//     contentBase: 'client',
+//     stats: {
+//       colors: true,
+//       hash: false,
+//       timings: true,
+//       chunks: false,
+//       chunkModules: false,
+//       modules: false
+//     }
+//   });
+//
+//   app.use(middleware);
+//   app.use(webpackHotMiddleware(compiler));
+//   app.get('*', function response(req, res) {
+//     res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')));
+//     res.end();
+//   });
+// } else {
+//
+//   // app.use(express.static(__dirname + '/dist'));
+//   // app.get('*', function response(req, res) {
+//   //   res.sendFile(path.join(__dirname, 'dist/index.html'));
+//   // });
+//
+// }

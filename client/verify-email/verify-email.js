@@ -5,6 +5,6 @@ angular.module('exampleApp')
     $stateProvider
       .state('verify', {
         url: '/verify?sptoken',
-        templateUrl: 'verify-email/verify-email.html'
+        template: require('./verify-email.html')
       });
   });

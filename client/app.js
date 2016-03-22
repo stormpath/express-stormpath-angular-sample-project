@@ -1,3 +1,6 @@
+require("style!css!../node_modules/bootstrap/dist/css/bootstrap.min.css");
+require("./app.css");
+//@require "./spinner/spinner.html"
 'use strict';
 
 angular.module('exampleApp', [
@@ -35,3 +38,11 @@ angular.module('exampleApp', [
       $state.transitionTo('login');
     });
   });
+require('./change-password/change-password.js');
+require('./forgot-password/forgot-password.js');
+require('./home/home.js');
+require('./login/login.js');
+require('./navbar/navbar.js');
+require('./profile/profile.js');
+require('./register/register.js');
+require('./verify-email/verify-email.js');
