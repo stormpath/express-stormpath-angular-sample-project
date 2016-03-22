@@ -1,5 +1,6 @@
+require("style!css!../node_modules/bootstrap/dist/css/bootstrap.min.css");
 require("./app.css");
-
+//@require "./spinner/spinner.html"
 'use strict';
 
 angular.module('exampleApp', [

@@ -33,12 +33,8 @@ app.set('trust proxy',true);
   setup this server before we initialize Stormpath.
 
  */
-if (isDeveloping) {
-  console.log('isdev static');
-  app.use('/',express.static(path.join(__dirname, '..', 'client'),{ redirect: false }));
-
-} else {
-  app.use('/',express.static(path.join(__dirname, '..', 'client'),{ redirect: false }));
+if (!isDeveloping) {
+  app.use('/',express.static(path.join(__dirname, '..', 'dist'),{ redirect: false }));
 }
 
 /**
@@ -96,13 +92,7 @@ app.use(stormpath.init(app, {
         // res.sendFile(path.join(__dirname, 'dist/index.html'));
        res.end();
      });
- } else {
-   app.route('/*')
-     .get(function(req, res) {
-       res.sendFile(path.join(__dirname, '..', 'client','index.html'));
-     });
-
- }
+ } 
 
 app.post('/profile', bodyParser.json(), stormpath.loginRequired, require('./routes/profile'));
 
@@ -115,8 +105,7 @@ app.on('stormpath.ready',function () {
 
 const port = process.env.PORT || 3000;
 app.listen(port, function () {
-  console.log(path.join(__dirname, '../client/index.html'));
-  console.log(process.env.NODE_ENV, isDeveloping);
+  console.log("NODE_ENV =", process.env.NODE_ENV);
   console.log('Application running at http://localhost:'+port);
 });
 
