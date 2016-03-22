@@ -26,19 +26,11 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      // filename: 'index.html',
-      // template: './app/index.html',
-      // pkg: pkg,
       template: path.join(__dirname, 'client/index.html'),
       hash: true,
       title: 'title'
 
     }),
-    // new HtmlWebpackPlugin({
-    //   template: 'app/index.tpl.html',
-    //   inject: 'body',
-    //   filename: 'index.html'
-    // }),
     // new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     // new webpack.NoErrorsPlugin(),
