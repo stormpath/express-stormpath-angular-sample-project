@@ -18,7 +18,7 @@ angular.module('exampleApp')
         }
       });
   })
-  .controller('ProfileCtrl', function ($scope, $http, $timeout) {
+  .controller('ProfileCtrl', function ($scope, $http, $timeout, $user) {
     $scope.saving = false;
     $scope.saved = false;
     $scope.error = null;
@@ -34,6 +34,7 @@ angular.module('exampleApp')
       $http.post('/profile',$scope.formModel)
         .then(function(){
           $scope.saved = true;
+          $user.get(true); // refresh the user context for the entire application
           $timeout(function(){
             $scope.saved = false;
           },2000);
