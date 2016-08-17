@@ -5,11 +5,18 @@ angular.module('exampleApp', [
   'stormpath',
   'stormpath.templates'
 ])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, $locationProvider, STORMPATH_CONFIG) {
     $urlRouterProvider
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
+
+    /*
+     At the moment, JSON is not the default content type when posting forms, but
+     most of our framework integrations are expecting JSON, so we need to manually set
+     this.  JSON will be the default in the next major release of the Angular SDK.
+    */
+    STORMPATH_CONFIG.FORM_CONTENT_TYPE = 'application/json';
   })
   .run(function($stormpath,$rootScope,$state){
 
@@ -26,12 +33,12 @@ angular.module('exampleApp', [
     });
 
     /*
-      We want to redirect users back to the login
+      We want to redirect users back to the home
       state after they logout, so we watch for the
       logout event and then transition them to the
       login state
      */
     $rootScope.$on('$sessionEnd',function () {
-      $state.transitionTo('login');
+      $state.transitionTo('home');
     });
   });
