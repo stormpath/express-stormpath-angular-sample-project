@@ -1,24 +1,19 @@
 # Stormpath Angular + Express Fullstack Sample Project
 
 This repository is an example fullstack web application, using Angular.js on the
-front-end and Express.js as your back-end server.  It uses [express-stormpath][]
+front-end and Express.js as your back-end server. It uses [express-stormpath][]
 and [stormpath-sdk-angularjs][] to authenticate users, protect your server API,
 and render default login and registration screens in your Angular application.
-
-[express-stormpath]: https://github.com/stormpath/express-stormpath
-[stormpath-sdk-angularjs]: https://github.com/stormpath/stormpath-sdk-angularjs
 
 ## 1. Getting Started
 
 To run this example project on your local computer, you will need to have
 [Node.js][] installed and will need to create a [Stormpath][] tenant account.
-Please sign up for a free account at https://api.stormpath.com/register
-
+If you don't have a Stormpath account, sign up for a free account at [https://api.stormpath.com/register](https://api.stormpath.com/register).
 
 ## 2. Installation
 
-Clone this repository, then enter the folder with your terminal and run this
-command:
+Clone this repository, then using a terminal, navigate to the directory and run the following:
 
 ```bash
 npm install
@@ -26,11 +21,31 @@ npm install
 
 If the installation is successful you can continue on to configuration.
 
-## 3. Configuration
+## 3. Gather Stormpath Configuration
 
-Please
-create a file, in this folder, named `stormpath.yml` and place this configuration
-in the file:
+You'll need to [Download an API Key Pair](https://docs.stormpath.com/rest/product-guide/latest/quickstart.html#create-an-api-key-pair) from the [Stormpath Admin Console][], and find the **Application Href** (also called **REST URL**) of the Application that you will use for your project. The default application is called "My Application" and you can use that to get started.
+
+## 4. Provide Configuration To Your Application
+
+Provide the **API Key ID**, **API Key Secret**, and **Application Href** to your environment, with one of these strategies:
+
+**Unix Environment Variables:**
+
+```bash
+export STORMPATH_CLIENT_APIKEY_ID=YOUR_ID_HERE
+export STORMPATH_CLIENT_APIKEY_SECRET=YOUR_SECRET_HERE
+export STORMPATH_APPLICATION_HREF=YOUR_APP_HREF
+```
+
+**Windows Environment Variables:**
+
+```bash
+set STORMPATH_CLIENT_APIKEY_ID=YOUR_ID_HERE
+set STORMPATH_CLIENT_APIKEY_SECRET=YOUR_SECRET_HERE
+set STORMPATH_APPLICATION_HREF=YOUR_APP_HREF
+```
+
+**Place them in a file named `stormpath.yml`, in the directory where you run the dev server:**
 
 ```yaml
 client:
@@ -38,15 +53,15 @@ client:
     id: YOUR_API_KEY_ID
     secret: YOUR_API_KEY_SECRET
 application:
-  href: https://api.stormpath.com/v1/applications/XXXX <-- YOUR APP HREF
+  href: https://api.stormpath.com/v1/applications/XXXX
 ```
 
-## 4. Usage
+## 5. Usage
 
 To start the server, run this command in the folder:
 
 ```bash
-node server/server.js
+$ npm start
 ```
 
 If the server is able to start with your configuration, you will see this in
@@ -57,10 +72,15 @@ Stormpath Ready
 Application running at http://localhost:3000
 ```
 
-The application should now be running in your borwser at http://localhost:3000
+The application should now be running in your browser at [http://localhost:3000](http://localhost:3000).
 
-You can get your API Keys and Application HREF from the
-[Stormpath Admin Console][].
+## Support
+
+We're here to help if you get stuck. There are several ways that you can get in touch with a member of our team:
+
+*   Send an email to [support@stormpath.com](mailto:support@stormpath.com)
+*   Open a Github Issue on this repository.
+*   Join us on our Slack channel: [https://talkstormpath.shipit.xyz/](https://talkstormpath.shipit.xyz/)
 
 [Node.js]: https://nodejs.org
 [Stormpath]: https://stormpath.com
