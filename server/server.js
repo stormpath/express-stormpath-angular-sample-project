@@ -31,22 +31,6 @@ app.use('/',express.static(path.join(__dirname, '..', 'client'),{ redirect: fals
  * point will be protected by Stormpath.
  */
 
-console.log('Initializing Stormpath');
-
-app.use(stormpath.init(app, {
-  web: {
-    spa: {
-      enabled: true,
-      view: path.join(__dirname, '..', 'client','index.html')
-    },
-    me: {
-      expand: {
-        customData: true,
-        groups: true
-      }
-    }
-  }
-}));
 
 /**
  * Now that our static file server and Stormpath are configured, we let Express
@@ -59,8 +43,6 @@ app.route('/*')
   .get(function(req, res) {
     res.sendFile(path.join(__dirname, '..', 'client','index.html'));
   });
-
-app.post('/profile', bodyParser.json(), stormpath.loginRequired, require('./routes/profile'));
 
 /**
  * Start the web server.
