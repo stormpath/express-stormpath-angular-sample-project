@@ -11,12 +11,14 @@ angular.module('exampleApp', [
 
     $locationProvider.html5Mode(true);
 
-    /*
-     At the moment, JSON is not the default content type when posting forms, but
-     most of our framework integrations are expecting JSON, so we need to manually set
-     this.  JSON will be the default in the next major release of the Angular SDK.
-    */
-    STORMPATH_CONFIG.FORM_CONTENT_TYPE = 'application/json';
+    STORMPATH_CONFIG.ENDPOINT_PREFIX = 'https://YOUR_DOMAIN_NAME.apps.stormpath.io';
+
+    /**
+     * We want to authenticate the requests to our local profile route, adding it
+     * to this list tells Stormpath to automatically add the Authorization header
+     * when sending requests to that URL.
+     */
+    STORMPATH_CONFIG.AUTO_AUTHORIZED_URIS.push('/profile');
   })
   .run(function($stormpath,$rootScope,$state){
 

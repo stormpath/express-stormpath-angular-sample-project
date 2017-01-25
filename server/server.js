@@ -35,24 +35,19 @@ console.log('Initializing Stormpath');
 
 app.use(stormpath.init(app, {
   web: {
-    spa: {
-      enabled: true,
-      view: path.join(__dirname, '..', 'client','index.html')
-    },
-    me: {
-      expand: {
-        customData: true,
-        groups: true
-      }
-    }
+
+    // This produces option will disable the default HTML pages that express-stormpath
+    // will serve, we don't need them because our Angular app is responsible for them.
+
+    produces: ['application/json']
   }
 }));
 
 /**
  * Now that our static file server and Stormpath are configured, we let Express
  * know that any other route that hasn't been defined should load the Angular
- * application.  It then becomes the responsiliby of the Angular application
- * to define all view routes, and rediret to the home page if the URL is not
+ * application.  It then becomes the responsibility of the Angular application
+ * to define all view routes, and redirect to the home page if the URL is not
  * defined.
  */
 app.route('/*')
@@ -60,7 +55,11 @@ app.route('/*')
     res.sendFile(path.join(__dirname, '..', 'client','index.html'));
   });
 
-app.post('/profile', bodyParser.json(), stormpath.loginRequired, require('./routes/profile'));
+/**
+ * We want to require authentication for our profile route, so we use the
+ * authenticationRequired middleware to enforce this.
+ */
+app.post('/profile', stormpath.authenticationRequired, bodyParser.json(), require('./routes/profile'));
 
 /**
  * Start the web server.
