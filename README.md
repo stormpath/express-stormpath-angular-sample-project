@@ -1,85 +1,72 @@
-#Stormpath is Joining Okta
+# Stormpath is Joining Okta
 
 We are incredibly excited to announce that [Stormpath is joining forces with Okta](https://stormpath.com/blog/stormpaths-new-path?utm_source=github&utm_medium=readme&utm-campaign=okta-announcement). Please visit [the Migration FAQs](https://stormpath.com/oktaplusstormpath?utm_source=github&utm_medium=readme&utm-campaign=okta-announcement) for a detailed look at what this means for Stormpath users.
 
 We're available to answer all questions at [support@stormpath.com](mailto:support@stormpath.com).
 
-# Stormpath Angularjs (1.x) + Express Fullstack Sample Project
+## What does this mean for developers who are using this library?
 
-This repository is an example full-stack web application, using AngularJS (1.x) on the
-front-end and Express as your back-end server.  It uses [express-stormpath][]
-and the [Stormpath Angularjs SDK][] to authenticate users, protect your server API,
-and render default login and registration screens in your Angular application.
+This library was an example project that showed you how integrate the [express-stormpath][] and [Stormpath Angular SDK][] libraries into your Express application.
 
-In this example, you will see the following:
+Now this example has been changed to depend on the in-progress 4.0 release of [express-stormpath][].  You can use this sample application to demonstrate the work in progress on the 4.0 release
 
-* The default registration and login pages that the [Stormpath Angularjs SDK][] can provide to your application.
-* How to use the [Stormpath Client API][] to authenticate the user.
-* Using the tokens obtained from the Client API to authenticate requests against your backend.
-* Updating the custom data of the Stormpath user object, with a custom profile route handler.
+## How to use this to test Express-Stormpath 4.0 Release Candidates
 
+1. Current stormpath developers should obtain an Okta Developer organization by visiting https://www.okta.com/developer/signup/stormpath
 
-## 1. Getting Started
+2. Clone this repo to your computer, and cd into the project directory:
 
-To run this example project on your local computer, you will need to have
-[Node.js][] installed and will need to create a [Stormpath][] tenant account.
-Please sign up for a free account at https://api.stormpath.com/register
+  ```bash
+  git clone https://github.com/stormpath/express-stormpath-angular-sample-project.git
+  cd express-stormpath-angular-sample-project
+  ```
 
+3. Install the dependencies from package.json:
 
-## 2. Installation
+  ```bash
+  npm install
+  ```
 
-Clone this repository, then enter the folder with your terminal and run this
-command:
+4. Export your Okta Org URL to the environment, this was emailed to you when you signed up, and it's the URL you use to get into the Okta Admin Console:
 
-```bash
-npm install
-```
+  ```bash
+  export OKTA_ORG=https://dev-YOUR_ORG_ID.oktapreview.com/
+  ```
 
-If the installation is successful you can continue on to configuration.
+5. Using the Okta Admin Console, obtain an API Token for the Okta API by visiting Admin -> Security -> API -> Tokens, then exporting it to the environment:
 
-## 3. Configuration
+  ```bash
+  export OKTA_APITOKEN=YOUR_TOKEN
+  ```
 
-To configure the Express server, you need to tell it which Stormpath Application you are using, and a set of API Keys from a Stormpath Administrator account, for securing the communication with Stormpath.  Create a file, in the root of the example, named `stormpath.yml` and place this configuration in the file:
+6. Run the test data script to populate your tenant with some test data:
 
-```yaml
-client:
-  apiKey:
-    id: YOUR_API_KEY_ID
-    secret: YOUR_API_KEY_SECRET
-application:
-  href: https://api.stormpath.com/v1/applications/XXXX <-- YOUR APP HREF
-```
+  ```bash
+  node ./node_modules/express-stormpath/util/okta-test-data.js --apiToken=$OKTA_APITOKEN --org=$OKTA_ORG
+  ```
 
-In the Angular application, you need to specify the Client API domain for your Stormpath Application, this is where the authentication API is for your application.  You can find this by logging into the Stormpath Admin Console, and visiting the Policies section of your Stormpath Application.  You should use the same Stormpath Application that you specified for your Express server.
+  The script will output some information, including an Okta Application ID, which you should export to the environment:
 
-In `client/app.js`, specify your Client API domain:
+  ```bash
+  export OKTA_APPLICATION_ID=YOUR_ID
+  ```
+7. Start the node server:
 
-```javscript
-STORMPATH_CONFIG.ENDPOINT_PREFIX = 'https://YOUR_DOMAIN_NAME.apps.stormpath.io';
-```
+  ```bash
+  node server.js
+  ```
 
-## 4. Usage
+8. Visit [http://localhost:3000/](http://localhost:3000/) in your browser.  You should be able to login with the credentials that were provided by the test data script
 
-To start the server, run this command:
+If you are able to login, things are working!  You can now use this app to test any use cases that are important to you.  As you do so, you'll want to review the [Express-Stormpath 4.x Changelog][] to understand what is changing.
 
-```bash
-npm start
-```
+The next step is to export your tenant data from Stormpath (available in the Stormpath Admin Console).  Once you have an export you can use the [stormpath-migration][] tool to import your data into Okta.
 
-If the server is able to start with your configuration, you will see this in
-your terminal:
+## Contact Stormpath Support
 
-```bash
-Initializing Stormpath
-Application running at http://localhost:3000
-Stormpath Ready
-```
-
-The application should now be running in your browser at http://localhost:3000
+Questions?  Please get in touch through [support@stormpath.com](mailto:support@stormpath.com), your feedback is very important during this migration!
 
 [express-stormpath]: https://github.com/stormpath/express-stormpath
-[Node.js]: https://nodejs.org
-[Stormpath]: https://stormpath.com
-[Stormpath Admin Console]: https://api.stormpath.com
-[Stormpath Angularjs SDK]: https://github.com/stormpath/stormpath-sdk-angularjs
-[Stormpath Client API]: https://docs.stormpath.com/client-api/product-guide/latest/
+[Express-Stormpath 4.x Changelog]: https://github.com/stormpath/express-stormpath/blob/4.0.0/docs/changelog.rst
+[Stormpath Angular SDK]: https://github.com/stormpath/stormpath-sdk-angularjs
+[stormpath-migration]: https://github.com/okta/stormpath-migration

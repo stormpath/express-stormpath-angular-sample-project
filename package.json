@@ -32,6 +32,6 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "express-stormpath": "^3.x"
+    "express-stormpath": "next"
   }
 }

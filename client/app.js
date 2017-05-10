@@ -10,15 +10,6 @@ angular.module('exampleApp', [
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
-
-    STORMPATH_CONFIG.ENDPOINT_PREFIX = 'https://YOUR_DOMAIN_NAME.apps.stormpath.io';
-
-    /**
-     * We want to authenticate the requests to our local profile route, adding it
-     * to this list tells Stormpath to automatically add the Authorization header
-     * when sending requests to that URL.
-     */
-    STORMPATH_CONFIG.AUTO_AUTHORIZED_URIS.push('/profile');
   })
   .run(function($stormpath,$rootScope,$state){
 
