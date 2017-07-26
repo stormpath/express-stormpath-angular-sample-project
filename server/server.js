@@ -39,7 +39,15 @@ app.use(stormpath.init(app, {
     // This produces option will disable the default HTML pages that express-stormpath
     // will serve, we don't need them because our Angular app is responsible for them.
 
-    produces: ['application/json']
+    produces: ['application/json'],
+
+    // This allows the /me endpoint to expose the user's custom data to the angular app
+
+    me: {
+      expand: {
+        customData: true
+      }
+    }
   }
 }));
 
